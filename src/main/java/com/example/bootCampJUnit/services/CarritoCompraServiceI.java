@@ -7,6 +7,7 @@ import com.example.bootCampJUnit.entities.Articulo;
 public interface CarritoCompraServiceI {
 	void limpiarCesta();
 	void addArticulo(Articulo articulo);
+	int addArticuloById(int id, Articulo articulo);
 	int getNumArticulos();
 	List<Articulo> getArticulos();
 	Double totalPrice();

@@ -38,12 +38,18 @@ class CarritoCompraServiceTest {
 	@InjectMocks
 	CarritoCompraServiceImpl carritoCompraServiceI;
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
+	@BeforeEach
+	void BeforeEachtest()
+	{
+		carritoCompraServiceI.limpiarCesta();
+		
+		Articulo articulo1 = new Articulo("prueba1", 10.0);
+		Articulo articulo2 = new Articulo("prueba2", 5.0);
+		
+		carritoCompraServiceI.addArticulo(articulo1);
+		carritoCompraServiceI.addArticulo(articulo2);
+
 	}
-	
-	
 
 	
 	
@@ -71,13 +77,7 @@ class CarritoCompraServiceTest {
 
 	@Test
 	public void testgetNumArticulo() {
-		carritoCompraServiceI = new CarritoCompraServiceImpl();
 		
-		Articulo articulo1 = new Articulo("prueba1", 10.0);
-		Articulo articulo2 = new Articulo("prueba2", 5.0);
-		
-		carritoCompraServiceI.addArticulo(articulo1);
-		carritoCompraServiceI.addArticulo(articulo2);
 
 		assertEquals(carritoCompraServiceI.getArticulos().size(), carritoCompraServiceI.getNumArticulos());
 		
@@ -87,8 +87,6 @@ class CarritoCompraServiceTest {
 	public void testgetArticulos() {
 		
 		
-		
-		assertEquals(1, 2);
 	}
 
 	@Test
@@ -118,12 +116,35 @@ class CarritoCompraServiceTest {
 
 		assertEquals(carritoCompraServiceI.aplicarDescuento(1, 12.0), 8.8);
 		
+		
 		verify(baseDatosServiceI, times(1)).findArticuloById(1);
 		
 	}
 
 	@Test
 	public void testaplicarDescuento() {
-		assertEquals(1, 2);
+		when(baseDatosServiceI.findArticuloById(any(Integer.class))).thenReturn(new Articulo("camiseta", 10.0));
+		
+
+		assertEquals(carritoCompraServiceI.aplicarDescuento(1, 12.0), 8.8);
+		
+		
+		verify(baseDatosServiceI, times(1)).findArticuloById(1);
 	}
+	
+	@Test
+	public void testInsertarArticuloById() {
+		
+		Articulo articulo = new Articulo("camiseta", 10.0);
+		
+		when(baseDatosServiceI.InsertarById(any(Integer.class), any(Articulo.class))).thenReturn(3);
+		
+		assertEquals(carritoCompraServiceI.addArticuloById(3, articulo), 3);
+		assertTrue(carritoCompraServiceI.getArticulos().contains(articulo));
+		verify(baseDatosServiceI, atLeast(1)).InsertarById(any(Integer.class), any(Articulo.class));
+	
+
+	}
+	
+	
 }

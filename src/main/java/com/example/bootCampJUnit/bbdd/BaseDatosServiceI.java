@@ -9,5 +9,6 @@ public interface BaseDatosServiceI {
 	Articulo findArticuloById(Integer id);
 	
 	String InsertarArticulo(Articulo articulo);
+	int InsertarById(int id, Articulo articulo);
 
 }

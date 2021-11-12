@@ -75,6 +75,13 @@ public class CarritoCompraServiceImpl implements CarritoCompraServiceI{
 		
 		return resultado;
 	}
+
+	@Override
+	public int addArticuloById(int id, Articulo articulo) {
+		listaArticulos.add(articulo);
+		return baseDatosServiceI.InsertarById(id, articulo);
+		
+	}
 	
 
 	

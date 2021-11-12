@@ -71,4 +71,12 @@ public class BaseDatosImpl implements BaseDatosServiceI{
 		return storage.size();
 	}
 
+	@Override
+	public int InsertarById(int id, Articulo articulo) {
+		
+		storage.put(id, articulo);
+		
+		return id;
+	}
+
 }
